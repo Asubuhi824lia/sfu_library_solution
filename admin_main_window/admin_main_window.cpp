@@ -43,8 +43,8 @@ admin_main_window::admin_main_window(QString user, users_controller& users_cnr) 
     grid->addWidget(new QLabel("Домашний адрес"), 10, 1);
     grid->addWidget(&home_address, 11, 1);
 
-    QRegExp rx3("[0-9a-zA-Z-/.,]{0,}");
     grid->addWidget(new QLabel("Логин"), 12, 1);
+    QRegExp rx3("[0-9a-zA-Z-/.,]{0,}");
     login.setValidator(new QRegExpValidator(rx3, this));
     grid->addWidget(&login, 13, 1);
 
@@ -55,7 +55,7 @@ admin_main_window::admin_main_window(QString user, users_controller& users_cnr) 
     auto pbt = new QPushButton("Добавить библиотекаря");
     grid->addWidget(pbt, 16, 1, 1, 3);
 
-    setLayout(grid);
+    this->setLayout(grid);
 
     connect(this->librarians_list, SIGNAL(itemDoubleClicked(QListWidgetItem *)),
             this, SLOT(del_librarian_clicked(QListWidgetItem *)));

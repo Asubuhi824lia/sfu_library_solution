@@ -6,15 +6,16 @@
 #include <QListWidget>
 #include <QTableWidget>
 
-librarian_main_window::librarian_main_window(QString login, users_controller& users) : QWidget(nullptr)
-{
+#include "reg_reader/reg_reader.h"
+
+librarian_main_window::librarian_main_window(QString libr_login, users_controller& users) : QWidget(nullptr), libr_login(libr_login), users_cnr(users) {
     QGridLayout* grid = new QGridLayout();
 
     grid->addWidget(new QLabel("Читатели"), 1, 1);
-    auto lw = new QListWidget();
+    readers_list = new QListWidget();
     QStringList readers = users.get_list_readers();
-    lw->addItems(readers);
-    grid->addWidget(lw, 2, 1, 1, 2);
+    readers_list->addItems(readers);
+    grid->addWidget(readers_list, 2, 1, 1, 2);
 
     grid->addWidget(new QLabel("Фонд книг"), 1, 3);
     auto tw = new QTableWidget();
@@ -24,11 +25,7 @@ librarian_main_window::librarian_main_window(QString login, users_controller& us
     grid->addWidget(tw, 2, 3, 1, 4);
 
     auto bt_r1 = new QPushButton("Добавить");
-    grid->addWidget(bt_r1, 3, 1);
-
-    auto bt_r2 = new QPushButton("Удалить");
-    grid->addWidget(bt_r2, 3, 2);
-
+    grid->addWidget(bt_r1, 3, 1, 2, 1);
 
     auto bt_b1 = new QPushButton("Принять книгу");
     grid->addWidget(bt_b1, 3, 3);
@@ -42,29 +39,43 @@ librarian_main_window::librarian_main_window(QString login, users_controller& us
     auto bt_b4 = new QPushButton("Списать книгу");
     grid->addWidget(bt_b4, 3, 6);
 
-//    grid->addWidget(new QLabel("Логин"), 8, 1);
-//    grid->addWidget(&login, 9, 1);
+    this->setLayout(grid);
 
-//    grid->addWidget(new QLabel("Пароль"), 8, 2);
-//    grid->addWidget(&password, 9, 2);
+    connect(this->readers_list, SIGNAL(itemDoubleClicked(QListWidgetItem *)),
+            this, SLOT(del_reader_clicked(QListWidgetItem *)));
 
-//    grid->addWidget(new QLabel("Фамилия"), 8, 3);
-//    grid->addWidget(&surname, 9, 3);
-
-//    grid->addWidget(new QLabel("Имя"), 8, 4);
-//    grid->addWidget(&name, 9, 4);
-
-//    grid->addWidget(new QLabel("Отчество"), 8, 5);
-//    grid->addWidget(&middle_name, 9, 5);
-
-//    grid->addWidget(new QLabel("Домашний адрес"), 10, 1);
-//    grid->addWidget(&home_address, 11, 1);
-
-//    grid->addWidget(new QLabel("Читательский билет"), 10, 2);
-//    grid->addWidget(&num_library_card, 11, 2);
-
-//    auto pbt = new QPushButton("Добавить читателя");
-//    grid->addWidget(pbt, 13, 1, 1, 7);
-
-    setLayout(grid);
+    connect(bt_r1, SIGNAL(clicked()),
+             this, SLOT(add_reader_clicked()));
 }
+
+void librarian_main_window::del_reader_clicked(QListWidgetItem* i) {
+    auto aboutDel = new QMessageBox();
+    aboutDel->setText("Удалить читателя?");
+    aboutDel->setStandardButtons(QMessageBox::Ok| QMessageBox::Cancel);
+    aboutDel->setDefaultButton(QMessageBox::Cancel);
+    int ret = aboutDel->exec();
+
+    switch (ret) {
+        case QMessageBox::Ok:
+            {
+                users_cnr.remove_reader(i->text());
+                readers_list->clear();
+                auto readers = users_cnr.get_list_readers();
+                readers_list->addItems(readers);
+                break;
+            }
+        case QMessageBox::Cancel:
+            break;
+    }
+}
+
+void librarian_main_window::add_reader_clicked() {
+    auto add_us_form = new reg_reader(users_cnr);
+    add_us_form->setWindowTitle("Новый пользователь");
+    add_us_form->exec();
+    delete add_us_form;
+    QStringList readers = users_cnr.get_list_readers();
+    readers_list->clear();
+    readers_list->addItems(readers);
+}
+
