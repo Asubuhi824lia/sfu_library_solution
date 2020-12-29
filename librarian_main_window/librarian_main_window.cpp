@@ -4,11 +4,15 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QListWidget>
-#include <QTableWidget>
+
 
 #include "reg_reader/reg_reader.h"
 
-librarian_main_window::librarian_main_window(QString libr_login, users_controller& users) : QWidget(nullptr), libr_login(libr_login), users_cnr(users) {
+librarian_main_window::librarian_main_window(QString libr_login,
+                                             users_controller& users,
+                                             books_controller& books) :
+    QWidget(nullptr), libr_login(libr_login), users_cnr(users), books_cnr(books) {
+
     QGridLayout* grid = new QGridLayout();
 
     grid->addWidget(new QLabel("Читатели"), 1, 1);
@@ -18,11 +22,10 @@ librarian_main_window::librarian_main_window(QString libr_login, users_controlle
     grid->addWidget(readers_list, 2, 1, 1, 2);
 
     grid->addWidget(new QLabel("Фонд книг"), 1, 3);
-    auto tw = new QTableWidget();
-    tw->setColumnCount(6);
-    tw->setHorizontalHeaderLabels( {"Книга", "Автор", "Страниц", "Цена", "Читательский билет", "Дата выдачи"} );
-    tw->setColumnWidth(4, 120);    
-    grid->addWidget(tw, 2, 3, 1, 4);
+    tw.setColumnCount(6);
+    tw.setHorizontalHeaderLabels( {"Книга", "Автор", "Страниц", "Цена", "Читательский билет", "Дата выдачи"} );
+    tw.setColumnWidth(4, 120);
+    grid->addWidget(&tw, 2, 3, 1, 4);
 
     auto bt_r1 = new QPushButton("Добавить");
     grid->addWidget(bt_r1, 3, 1, 2, 1);
@@ -46,6 +49,42 @@ librarian_main_window::librarian_main_window(QString libr_login, users_controlle
 
     connect(bt_r1, SIGNAL(clicked()),
              this, SLOT(add_reader_clicked()));
+
+    connect(bt_b1, SIGNAL(clicked()), this, SLOT(accept_book()));
+    connect(bt_b2, SIGNAL(clicked()), this, SLOT(give_out_book()));
+    connect(bt_b3, SIGNAL(clicked()), this, SLOT(add_book()));
+    connect(bt_b4, SIGNAL(clicked()), this, SLOT(write_off_book()));
+
+    this->full_table_books();
+}
+
+void librarian_main_window::accept_book () {
+
+}
+
+void librarian_main_window::give_out_book () {
+
+}
+
+void librarian_main_window::add_book () {
+
+}
+
+void librarian_main_window::write_off_book () {
+
+}
+
+void librarian_main_window::full_table_books () {
+    auto v = this->books_cnr.get_books_info();
+
+    int row = 0;
+    for (auto i : v) {
+        tw.setCellWidget(row, 0, new QLabel(i.book_name));
+        tw.setCellWidget(row, 0, new QLabel(tr("%1 %2 %3").arg(i.auth.name).arg(i.auth.surname).arg(i.auth.middle_name)));
+        tw.setCellWidget(row, 0, new QLabel(i.num_pages));
+        tw.setCellWidget(row, 0, new QLabel(i.price));
+        row++;
+    }
 }
 
 void librarian_main_window::del_reader_clicked(QListWidgetItem* i) {

@@ -46,6 +46,7 @@ public:
     bool add_item (book_info& book);
     bool remove_item (const author_info& author, const QString& book_name);
     int get_num_items ();
+    QVector<book_info> get_books_info ();
 
 private:
     bool add_item_to_map (book_info& book, QString file_name);

@@ -141,3 +141,13 @@ void books_controller::inc_number () {
         }
     }
 }
+
+QVector<book_info> books_controller::get_books_info () {
+    QVector<book_info> v;
+
+    for( QMap<book_info, QString>::iterator it = books.begin(); it != books.end(); ) {
+        v.append(it.key());
+    }
+
+    return v;
+}

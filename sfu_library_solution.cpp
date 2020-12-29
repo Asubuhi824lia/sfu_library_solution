@@ -39,7 +39,7 @@ void sfu_library_solution::user_connect(QString login, QString password) {
     if (users.check_librarian_login(login) || s.password == password) {
         reg->close();
 
-        auto main_window = new librarian_main_window(login, users);
+        auto main_window = new librarian_main_window(login, users, books);
         main_window->setWindowTitle("Библиотекарь");
         main_window->show();
         return;
