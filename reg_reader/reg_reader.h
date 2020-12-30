@@ -11,6 +11,11 @@ class reg_reader : public QDialog {
     Q_OBJECT
 
 public:
+    /*!
+     * \brief Это метод для
+     * \param[in] users_cnr
+     * \return Возвращает
+     */
     explicit reg_reader(users_controller& users_cnr);
 
 private:

@@ -14,6 +14,7 @@ SOURCES += \
     librarian_main_window/librarian_main_window.cpp \
     main.cpp \
     reader_main_window/reader_main_window.cpp \
+    reg_book/reg_book.cpp \
     reg_reader/reg_reader.cpp \
     registration/registration.cpp \
     sfu_library_solution.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     librarian_main_window.h \
     librarian_main_window/librarian_main_window.h \
     reader_main_window/reader_main_window.h \
+    reg_book/reg_book.h \
     reg_reader/reg_reader.h \
     registration/registration.h \
     sfu_library_solution.h \

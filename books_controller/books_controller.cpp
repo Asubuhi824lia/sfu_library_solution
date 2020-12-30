@@ -18,12 +18,12 @@ books_controller::books_controller(QObject *parent) : QObject(parent) {
                 book_info book;
 
                 // заполнение полей структуры
-                book.book_name = file.readLine();
-                book.num_pages = file.readLine();
-                book.price = file.readLine();
-                book.auth.name = file.readLine();
-                book.auth.surname = file.readLine();
-                book.auth.middle_name = file.readLine();
+                book.book_name = remove_endl(file.readLine());
+                book.num_pages = remove_endl(file.readLine());
+                book.price = remove_endl(file.readLine());
+                book.auth.name = remove_endl(file.readLine());
+                book.auth.surname = remove_endl(file.readLine());
+                book.auth.middle_name = remove_endl(file.readLine());
 
                 add_item_to_map(book, tr("%1/%2").arg(dir_name).arg(item));
             } else {
@@ -129,6 +129,10 @@ void books_controller::create_number () {
     }
 }
 
+QString books_controller::remove_endl (QString s) {
+    return s.replace("\n", "").replace("\r", "");
+}
+
 void books_controller::inc_number () {
     QFile file("./book_info/.number");
     if(file.open(QIODevice::ReadWrite)) {
@@ -145,9 +149,25 @@ void books_controller::inc_number () {
 QVector<book_info> books_controller::get_books_info () {
     QVector<book_info> v;
 
-    for( QMap<book_info, QString>::iterator it = books.begin(); it != books.end(); ) {
+    for( QMap<book_info, QString>::iterator it = books.begin(); it != books.end(); ++it) {
         v.append(it.key());
     }
 
     return v;
+}
+
+bool books_controller::check_books(book_info& book) {
+    for( QMap<book_info, QString>::iterator it = books.begin(); it != books.end(); ) {
+            book_info item = it.key();
+        if (item.book_name == book.book_name &&
+            item.auth.name == book.auth.name &&
+            item.auth.surname == book.auth.surname &&
+            item.auth.middle_name == book.auth.middle_name ) {
+            return true;
+        } else {
+            ++it;
+        }
+    }
+
+    return false;
 }
