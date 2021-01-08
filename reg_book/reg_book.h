@@ -11,6 +11,10 @@ class reg_book : public QDialog
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Класс предоставляет интерфей добавления книги.
+     * \param[in] books_cnr - ссылка на экземпляр класса для работы с содержимым библиотеки.
+     */
     explicit reg_book(books_controller& books_cnr);
 
 private:

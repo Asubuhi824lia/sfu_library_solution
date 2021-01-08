@@ -12,9 +12,8 @@ class reg_reader : public QDialog {
 
 public:
     /*!
-     * \brief Это метод для
-     * \param[in] users_cnr
-     * \return Возвращает
+     * \brief Класс предоставляет интерфей регистрации пользователя.
+     * \param[in] users_cnr - ссылка на экземпляр класса для работы с пользователем.
      */
     explicit reg_reader(users_controller& users_cnr);
 

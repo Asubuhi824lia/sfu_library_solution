@@ -10,6 +10,9 @@ class sfu_library_solution : public QObject {
     Q_OBJECT
 
 public:
+    /*!
+     * \brief Основной класс информацционной системы.
+     */
     sfu_library_solution(QObject *parent = nullptr);
     ~sfu_library_solution();
 
@@ -19,7 +22,6 @@ private slots:
 private:
     registration* reg;
 
-    books_controller fond;
     users_controller users;
     books_controller books;
 };

@@ -31,32 +31,121 @@ class users_controller : public QObject {
     Q_OBJECT
 
 public:
+    /*!
+     * \brief Класс предоставляет интерфейс для работы с данными пользователя.
+     */
     explicit users_controller(QObject *parent = nullptr);
 
 public:
+    /*!
+     * \brief Этот метод добавляет администратора в базу.
+     * \param[in] admin - ссылка на структуру с информацией о пользователе.
+     * \return true - в случае успешного добавления пользователя, false - при провале.
+     */
     bool add_admin(const user_info& admin);
+    /*!
+     * \brief Этот метод добавляет библиотекаря в базу.
+     * \param[in] librarian - ссылка на структуру с информацией о пользователе.
+     * \return true - в случае успешного добавления пользователя, false - при провале.
+     */
     bool add_librarian(const user_info& librarian);
+    /*!
+     * \brief Этот метод добавляет читателя в базу.
+     * \param[in] reader - ссылка на структуру с информацией о пользователе.
+     * \return true - в случае успешного добавления пользователя, false - при провале.
+     */
     bool add_reader(const user_info& reader);
 
+    /*!
+     * \brief Этот метод находит администратора по его логину.
+     * \param[in] login - логин.
+     * \return Возвращает структуру пользователя, данные с которым совпали. Если такого нет - пустую структуру.
+     */
     const user_info& get_admin (const QString login);
+    /*!
+     * \brief Этот метод находит библиотекаря по его логину.
+     * \param[in] login - логин.
+     * \return Возвращает структуру пользователя, данные с которым совпали. Если такого нет - пустую структуру.
+     */
     const user_info& get_librarian (const QString login);
+    /*!
+     * \brief Этот метод находит читателя по его логину.
+     * \param[in] login - логин.
+     * \return Возвращает структуру пользователя, данные с которым совпали. Если такого нет - пустую структуру.
+     */
     const user_info& get_reader (const QString login);
 
+    /*!
+     * \brief Этот метод удаляет библиотекаря по структуре librarian.
+     * \param[in] librarian - ссылка на структуру с информацией о пользователе.
+     * \return true - в случае успешного удаления пользователя, иначе - false.
+     */
     bool remove_librarian(const user_info& librarian);
+    /*!
+     * \brief Этот метод удаляет библиотекаря по его логину.
+     * \param[in] login - логин.
+     * \return true - в случае успешного удаления пользователя, иначе - false.
+     */
     bool remove_librarian(QString login);
+    /*!
+     * \brief Этот метод удаляет читателя по структуре user.
+     * \param[in] user - ссылка на структуру с информацией о пользователе.
+     * \return true - в случае успешного добавления пользователя, иначе - false.
+     */
     bool remove_reader(const user_info& user);
+    /*!
+     * \brief Этот метод удаляет читателя по его логину.
+     * \param[in] login - логин.
+     * \return true - в случае успешного добавления пользователя, иначе - false.
+     */
     bool remove_reader(QString login);
 
+    /*!
+     * \brief Этот метод находит количество библиотекарей в базе.
+     * \return Возвращает количество библиотекарей.
+     */
     int get_num_librarians ();
+    /*!
+     * \brief Этот метод находит количество читателей в базе.
+     * \return Возвращает количество читателей.
+     */
     int get_num_readers ();
 
+    /*!
+     * \brief Этот метод возвращает список библиотекарей.
+     * \return возвращает список библиотекарей.
+     */
     QStringList get_list_librarians ();
+    /*!
+     * \brief Этот метод возвращает список читателей.
+     * \return возвращает список читателей.
+     */
     QStringList get_list_readers ();
 
+    /*!
+     * \brief Этот метод проверяет наличие пользователя в базе.
+     * \param[in] login - логин пользователя.
+     * \return true - в случае наличия пользователя, false - при его отсутствии.
+     */
     bool check_users_login(QString login);
 
+    /*!
+     * \brief Этот метод проверяет наличие администратора в базе
+     * \param[in] login - логин администратора.
+     * \return true - в случае наличия администратора, false - при его отсутствии.
+     */
     bool check_admin_login(QString login);
+    /*!
+     * \brief Этот метод проверяет наличие библиотекаря в базе
+     * \param[in] login - логин библиотекаря.
+     * \return true - в случае наличия библиотекаря, false - при его отсутствии.
+     */
     bool check_librarian_login(QString login);
+    /*!
+     * \brief Этот метод проверяет наличие читателя в базе
+     * \param[in] login - логин читателя.
+     * \return true - в случае наличия читателя, false - при его отсутствии.
+     */
     bool check_reader_login(QString login);
 
 private:

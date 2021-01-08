@@ -11,6 +11,11 @@ class admin_main_window : public QWidget
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Класс предоставляет интерфейc главного окна администратора.
+     * \param[in] login - логин администратора.
+     * \param[in] users - ссылка на экземпляр класса для работы с пользователем.
+     */
     explicit admin_main_window(QString login, users_controller& users);
 
 private:

@@ -32,14 +32,30 @@ void Tests_books() {
     book3.auth.surname = "King";
     book3.auth.middle_name = "Edwin";
 
+    book_info book4;
+    book4.book_name = "Three men in a boat (to say nothing of the dog)";
+    book4.num_pages = "208";
+    book4.price = "589";
+    book4.auth.name = "Jerome";
+    book4.auth.surname = "K.";
+    book4.auth.middle_name = "Jerome";
+
+    book_info book5;
+    book5.book_name = "Yu-Yu. Watchdog and Zhulka. Starlings. Peregrine Falcon. Elephant ride. Zaviraika";
+    book5.num_pages = "64";
+    book5.price = "149";
+    book5.auth.name = "Alexander";
+    book5.auth.surname = "Kuprin";
+    book5.auth.middle_name = "Ivanovich";
+
     books_controller fond;
     int num = fond.get_num_items();
-    std::cout << fond.get_num_items();
     fond.add_item(book1);
     fond.add_item(book2);
     fond.add_item(book3);
+    fond.add_item(book4);
+    fond.add_item(book5);
     num = fond.get_num_items();
-    std::cout << fond.get_num_items();
 
 
     author_info auth;
@@ -48,7 +64,6 @@ void Tests_books() {
     auth.middle_name = "Edwin";
     fond.remove_item(auth, "Mr. Mercedes");
     num = fond.get_num_items();
-    std::cout << fond.get_num_items();
 }
 
 void Tests_users() {
@@ -62,7 +77,7 @@ void Tests_users() {
     librarian1.home_address = "st. Krasnaya, 4";
 
     user_info librarian2;
-    librarian2.login = "IlyaIlyov";
+    librarian2.login = "Ilya Ilyov";
     librarian2.password = "1234";
     librarian2.name = "Ilya";
     librarian2.surname = "Ilyov";
@@ -74,7 +89,7 @@ void Tests_users() {
     reader1.login = "login1";
     reader1.password = "passw";
     reader1.name = "Petya";
-    reader1.surname = "Petrov";
+    reader1.surname = "Petrov-Smirnov";
     reader1.middle_name = "Petrovich";
     reader1.num_library_card = "8800222353500";
     reader1.home_address = "st. Krasnaya, 116";
@@ -85,16 +100,16 @@ void Tests_users() {
     reader2.name = "Sasha";
     reader2.surname = "Aleksandrova";
     reader2.middle_name = "Aleksandrovna";
-    reader2.num_library_card = "2220220221234";
+    reader2.num_library_card = "222022";
     reader2.home_address = "ул. Green, 1";
 
     user_info reader3;
     reader3.login = "login3";
     reader3.password = "PaSsW";
-    reader3.name = "Kilya";
+    reader3.name = "Kolya";
     reader3.surname = "Nikolayev";
     reader3.middle_name = "Nikolayevich";
-    reader3.num_library_card = "0011001144225";
+    reader3.num_library_card = "00110011441388887225";
     reader3.home_address = "st. Naberejnaya, 19";
 
     users_controller users;

@@ -14,6 +14,13 @@ class librarian_main_window : public QWidget
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Класс предоставляет интерфей главного окна библиотекаря.
+     * \param[in] libr_login - логин пользователя.
+     * \param[in] users - ссылка на экземпляр класса для работы с пользователем.
+     * \param[in] books - ссылка на экземпляр класса для работы с фондом.
+     * \return
+     */
     explicit librarian_main_window(QString libr_login, users_controller& users, books_controller& books);
 
 private:

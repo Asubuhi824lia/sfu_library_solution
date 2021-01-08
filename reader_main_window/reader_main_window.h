@@ -7,6 +7,10 @@ class reader_main_window : public QWidget
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Класс предоставляет интерфей главного окна читателя.
+     * \param[in] user - логин пользователя.
+     */
     explicit reader_main_window(QString user);
 
 private:
